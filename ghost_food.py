@@ -1,6 +1,7 @@
 import random
 import pygame
 from game_settings import GameSettings
+from ghost import Ghost
 
 
 class Food:
@@ -25,6 +26,7 @@ class Food:
             if len(self.food_lst) + 1 != 1:
                 self.window_surface.blit(self.food_img_stretched, self.food_lst[i - 1])
             else:
+                Ghost.instance.speed_increase()
                 self.create_food()
 
     def check_collisions(self):
