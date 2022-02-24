@@ -9,29 +9,24 @@ pygame.init()
 window_width = 600
 window_height = 600
 window_surface = pygame.display.set_mode((window_width, window_height))
-pygame.display.set_caption('Pacman')
-FPS = 60
+pygame.display.set_caption('Anti-Pacman')
+FPS = 90
 main_clock = pygame.time.Clock()
 # цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-GRAY = (125, 125, 125)
-LIGHT_BLUE = (64, 128, 255)
-GREEN = (0, 200, 64)
-YELLOW = (225, 225, 0)
-PINK = (230, 50, 230)
 RED = (255, 0, 0)
-BLUE = (0, 0, 255)
 # переменные направления
 DOWNLEFT = 'downleft'
 DOWNRIGHT = 'downright'
 UPLEFT = 'upleft'
 UPRIGHT = 'upright'
 MOVELEFT = MOVERIGHT = MOVEUP = MOVEDOWN = False
-MOVEDSPEED = 2
+MOVEDSPEED = 1
 
 # назначение шрифта
 basic_font = pygame.font.SysFont('aquakana', 48)
+score = 0
 
 food_size = 25
 food = []
@@ -47,14 +42,14 @@ player_img_stretched = pygame.transform.scale(player_img, (40, 40))
 
 pygame.mixer.music.load('games_music/background.mp3')
 pygame.mixer.music.play(-1, 0.0)
-pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.set_volume(0.1)
 music_playing = True
 
 enemy_sound = pygame.mixer.Sound('games_music/catch.wav')
 food_sound = pygame.mixer.Sound('games_music/food.wav')
 jump_sound = pygame.mixer.Sound('games_music/jump.wav')
-
 enemy_img = pygame.image.load('games_photos/enemy.png')
+
 commands_block_one = {'rect': pygame.Rect(250, 80, 50, 100), 'img': pygame.transform.scale(enemy_img, (60, 70)),
                       'dir': UPRIGHT}
 commands_block_two = {'rect': pygame.Rect(200, 200, 20, 20), 'img': pygame.transform.scale(enemy_img, (20, 20)),
@@ -123,6 +118,11 @@ while True:
         if player.colliderect(i):
             food_sound.play()
             food.remove(i)
+            score += 1
+            text = basic_font.render(f'Клубничка: {score}', True, WHITE)
+            text_rect = text.get_rect()
+            text_rect.midtop = (300, 10)
+            window_surface.blit(text, text_rect)
 
     for i in range(len(food) + 1):
         if len(food) + 1 != 1:
@@ -132,7 +132,7 @@ while True:
                 food.append(pygame.Rect(random.randint(0, window_width - food_size),
                                         random.randint(0, window_width - food_size),
                                         food_size, food_size))
-                MOVEDSPEED += 0.1
+                MOVEDSPEED += 0.01
 
     for i in commands_list:
         if i['dir'] == DOWNLEFT:
@@ -180,5 +180,5 @@ while True:
             window_surface.blit(text, text_rect)
     window_surface.blit(player_img_stretched, player)
 
-    pygame.display.update()
+    pygame.display.flip()
     main_clock.tick(FPS)
