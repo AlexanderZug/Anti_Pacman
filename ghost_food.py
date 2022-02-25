@@ -2,6 +2,7 @@ import random
 import pygame
 from game_settings import GameSettings
 from ghost import Ghost
+from ghost_enemies import Enemies
 
 
 class Food:
@@ -11,7 +12,7 @@ class Food:
         self.food_size = 25
         self.food_lst = []
         self.food_img = pygame.image.load('games_photos/food.png')
-        self.food_img_stretched = pygame.transform.scale(self.food_img, (25, 25))
+        self.food_img_stretched = pygame.transform.scale(self.food_img, (self.food_size, self.food_size))
         self.food_sound = pygame.mixer.Sound('games_music/food.wav')
 
     def create_food(self):
@@ -27,6 +28,7 @@ class Food:
                 self.window_surface.blit(self.food_img_stretched, self.food_lst[i - 1])
             else:
                 Ghost.instance.speed_increase()
+                Enemies.instance.speed_increase()
                 self.create_food()
 
     def check_collisions(self):

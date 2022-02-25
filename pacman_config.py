@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from ghost import Ghost
 from game_settings import GameSettings
+from ghost_enemies import Enemies
 from ghost_food import Food
 
 
@@ -13,6 +14,8 @@ class AntiPacmanConfig:
         self.music_playing = True
         self.ghost = Ghost(self.window_surface)
         self.food = Food(self.window_surface, self.ghost.player)
+        self.enemies = Enemies(self.window_surface, self.ghost.player)
+        self.enemies.create_enemies_dict()
 
     def set_pygame_events_config(self):
         for event in pygame.event.get():
@@ -33,6 +36,8 @@ class AntiPacmanConfig:
         self.blit_unit(self.ghost.player_img_stretched, self.ghost.player)
         self.food.check_collisions()
         self.food.food_update()
+        self.enemies.create_enemies_speed()
+        self.enemies.check_collisions()
         pygame.display.update()
 
     def music_bg_stop(self, event):
