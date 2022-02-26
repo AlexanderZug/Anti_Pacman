@@ -43,10 +43,10 @@ class Enemies:
             if i['dir'] == self.move_direction[3]:
                 i['rect'].left += self.move_speed
                 i['rect'].top -= self.move_speed
-            self.get_rebound_from_field(i)
+            self.get_rebound_from_field_top_bottom(i)
             self.window_surface.blit(i['img'], i['rect'])
 
-    def get_rebound_from_field(self, i):
+    def get_rebound_from_field_top_bottom(self, i):
         if i['rect'].top < 0:
             if i['dir'] == self.move_direction[2]:
                 i['dir'] = self.move_direction[0]
@@ -57,6 +57,9 @@ class Enemies:
                 i['dir'] = self.move_direction[2]
             if i['dir'] == self.move_direction[1]:
                 i['dir'] = self.move_direction[3]
+        self.get_rebound_fromfield_legy_right(i)
+
+    def get_rebound_fromfield_legy_right(self, i):
         if i['rect'].left < 5:
             if i['dir'] == self.move_direction[0]:
                 i['dir'] = self.move_direction[1]

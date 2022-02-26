@@ -25,6 +25,7 @@ class AntiPacmanConfig:
             self.ghost.move_keydown(event)
             self.music_bg_stop(event)
             self.escape_exit(event)
+
         self.main_clock.tick(GameSettings().FPS)
 
     def blit_unit(self, img_unit, unit):
@@ -36,6 +37,8 @@ class AntiPacmanConfig:
         self.blit_unit(self.ghost.player_img_stretched, self.ghost.player)
         self.food.check_collisions()
         self.food.food_update()
+        self.food.get_score_amount()
+        self.food.get_lvl_amount()
         self.enemies.create_enemies_speed()
         self.enemies.check_collisions()
         pygame.display.update()
