@@ -20,12 +20,10 @@ class AntiPacmanConfig:
     def set_pygame_events_config(self):
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
+                self.terminate()
             self.ghost.move_keydown(event)
             self.music_bg_stop(event)
             self.escape_exit(event)
-
         self.main_clock.tick(GameSettings().FPS)
 
     def blit_unit(self, img_unit, unit):
@@ -51,13 +49,16 @@ class AntiPacmanConfig:
                 pygame.mixer.music.play(-1, 0.0)
             self.music_playing = not self.music_playing
 
+    def escape_exit(self, event):
+        if event.type == KEYUP:
+            if event.key == K_ESCAPE:
+                self.terminate()
+
     def music_config_bg(self):
         pygame.mixer.music.load('games_music/background.mp3')
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.09)
 
-    def escape_exit(self, event):
-        if event.type == KEYUP:
-            if event.key == K_ESCAPE:
-                pygame.quit()
-                sys.exit()
+    def terminate(self):
+        pygame.quit()
+        sys.exit()
