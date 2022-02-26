@@ -57,16 +57,16 @@ class Enemies:
                 i['dir'] = self.move_direction[2]
             if i['dir'] == self.move_direction[1]:
                 i['dir'] = self.move_direction[3]
-            if i['rect'].left < 5:
-                if i['dir'] == self.move_direction[0]:
-                    i['dir'] = self.move_direction[1]
-                if i['dir'] == self.move_direction[2]:
-                    i['dir'] = self.move_direction[3]
-            if i['rect'].right > 595:
-                if i['dir'] == self.move_direction[1]:
-                    i['dir'] = self.move_direction[0]
-                if i['dir'] == self.move_direction[3]:
-                    i['dir'] = self.move_direction[2]
+        if i['rect'].left < 5:
+            if i['dir'] == self.move_direction[0]:
+                i['dir'] = self.move_direction[1]
+            if i['dir'] == self.move_direction[2]:
+                i['dir'] = self.move_direction[3]
+        if i['rect'].right > 595:
+            if i['dir'] == self.move_direction[1]:
+                i['dir'] = self.move_direction[0]
+            if i['dir'] == self.move_direction[3]:
+                i['dir'] = self.move_direction[2]
 
     def check_collisions(self):
         for i in self.enemies_lst:
