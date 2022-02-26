@@ -15,6 +15,7 @@ class Food:
         self.food_img_stretched = pygame.transform.scale(self.food_img, (self.food_size, self.food_size))
         self.food_sound = pygame.mixer.Sound('games_music/food.wav')
         self.score = 0
+        self.score_lvl = 0
         self.lvl_count = 1
 
     def create_food(self):
@@ -24,20 +25,12 @@ class Food:
                             random.randint(0, GameSettings().window_width - self.food_size),
                             self.food_size, self.food_size))
 
-    def food_update(self):
-        for i in range(len(self.food_lst) + 1):
-            if len(self.food_lst) + 1 != 1:
-                self.window_surface.blit(self.food_img_stretched, self.food_lst[i - 1])
-            else:
-                Ghost.instance.speed_increase()
-                Enemies.instance.speed_increase()
-                self.create_food()
-
     def check_collisions(self):
         for i in self.food_lst[:]:
             if self.player.colliderect(i):
                 self.food_sound.play()
                 self.score += 1
+                self.score_lvl += 1
                 self.food_lst.remove(i)
 
     def get_score_amount(self):
@@ -47,10 +40,19 @@ class Food:
         self.window_surface.blit(score_text, score_rect)
 
     def get_lvl_amount(self):
-        if self.score == 6:
+        if self.score_lvl == 6:
             self.lvl_count += 1
-            self.score = 0
+            self.score_lvl = 0
         lvl_text = GameSettings().basic_font.render(f"Lvl.: {self.lvl_count}", False, GameSettings().text_colour)
         lvl_rect = lvl_text.get_rect()
         lvl_rect.bottomleft = (40, 565)
         self.window_surface.blit(lvl_text, lvl_rect)
+
+    def food_update(self):
+        for i in range(len(self.food_lst) + 1):
+            if len(self.food_lst) + 1 != 1:
+                self.window_surface.blit(self.food_img_stretched, self.food_lst[i - 1])
+            else:
+                Ghost.instance.speed_increase()
+                Enemies.instance.speed_increase()
+                self.create_food()
