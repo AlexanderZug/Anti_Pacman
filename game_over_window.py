@@ -8,19 +8,23 @@ from game_settings import GameSettings
 class GameStartAndOver:
     def __init__(self, window_surface):
         self.window_surface = window_surface
+        self.player = pygame.Rect(15, 520, 40, 40)
+        self.player_img = pygame.image.load('games_photos/ghost.png')
+        self.player_img_stretched = pygame.transform.scale(self.player_img, (40, 40))
 
     def wait_for_gamer_query(self):
         self.start_music()
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    GameSettings().terminate()
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
+                        GameSettings().terminate()
                     return
+
+    def blit_start_photo(self):
+        self.window_surface.blit(self.player_img_stretched, self.player)
 
     def titel_lbl(self):
         titel_text = GameSettings().start_font.render("AntiPacman", True, GameSettings().start_color)

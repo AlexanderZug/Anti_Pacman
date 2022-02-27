@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 
@@ -11,3 +13,8 @@ class GameSettings:
         self.bg_colour = (0, 0, 0)
         self.text_colour = (255, 255, 255)
         self.start_color = (255, 0, 0)
+
+    def terminate(self):
+        pygame.quit()
+        sys.exit()
+

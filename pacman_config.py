@@ -24,7 +24,7 @@ class AntiPacmanConfig:
     def set_pygame_events_config(self):
         for event in pygame.event.get():
             if event.type == QUIT:
-                self.terminate()
+                GameSettings().terminate()
             self.ghost.move_keydown(event)
             self.music_bg_stop(event)
             self.escape_exit(event)
@@ -57,6 +57,7 @@ class AntiPacmanConfig:
 
     def start_window(self):
         self.game_over.titel_lbl()
+        self.game_over.blit_start_photo()
         pygame.display.update()
         self.game_over.wait_for_gamer_query()
 
@@ -65,6 +66,3 @@ class AntiPacmanConfig:
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.09)
 
-    def terminate(self):
-        pygame.quit()
-        sys.exit()
