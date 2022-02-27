@@ -1,5 +1,7 @@
 import pygame
 
+from game_settings import GameSettings
+
 
 class Enemies:
     def __init__(self, window_surface, player):
@@ -10,6 +12,7 @@ class Enemies:
         self.enemy_sound = pygame.mixer.Sound('games_music/catch.wav')
         self.enemies_lst = []
         self.move_speed = 1
+        self.ghost_life = 50
 
     def speed_increase(self):
         self.move_speed += 0.5
@@ -74,7 +77,14 @@ class Enemies:
     def check_collisions(self):
         for i in self.enemies_lst:
             if self.player.colliderect(i['rect']):
+                self.ghost_life -= 1
                 self.enemy_sound.play()
+
+    def get_damage(self):
+        life_text = GameSettings().basic_font.render(f"HP: {self.ghost_life}", False, GameSettings().text_colour)
+        life_rect = life_text.get_rect()
+        life_rect.bottomright = (565, 585)
+        self.window_surface.blit(life_text, life_rect)
 
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, 'instance'):

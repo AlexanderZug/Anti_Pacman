@@ -39,6 +39,7 @@ class AntiPacmanConfig:
         self.food.get_lvl_amount()
         self.enemies.create_enemies_speed()
         self.enemies.check_collisions()
+        self.enemies.get_damage()
         pygame.display.update()
 
     def music_bg_stop(self, event):
