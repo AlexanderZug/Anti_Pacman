@@ -15,7 +15,7 @@ class Enemies:
         self.ghost_life = 50
 
     def speed_increase(self):
-        self.move_speed += 0.5
+        self.move_speed += 0.2
 
     def create_enemies_dict(self):
         commands_block_one = {'rect': pygame.Rect(250, 80, 50, 100),

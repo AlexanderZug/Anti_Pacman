@@ -1,6 +1,8 @@
 import sys
 import pygame
 from pygame.locals import *
+
+from game_over_window import GameStartAndOver
 from ghost import Ghost
 from game_settings import GameSettings
 from ghost_enemies import Enemies
@@ -12,10 +14,12 @@ class AntiPacmanConfig:
         self.window_surface = pygame.display.set_mode((GameSettings().window_width, GameSettings().window_height))
         self.main_clock = pygame.time.Clock()
         self.music_playing = True
+        self.game_over = GameStartAndOver(self.window_surface)
         self.ghost = Ghost(self.window_surface)
         self.food = Food(self.window_surface, self.ghost.player)
         self.enemies = Enemies(self.window_surface, self.ghost.player)
         self.enemies.create_enemies_dict()
+        self.start_window()
 
     def set_pygame_events_config(self):
         for event in pygame.event.get():
@@ -54,6 +58,11 @@ class AntiPacmanConfig:
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
                 self.terminate()
+
+    def start_window(self):
+        self.game_over.titel_lbl()
+        pygame.display.update()
+        self.game_over.get_gamer_query()
 
     def music_config_bg(self):
         pygame.mixer.music.load('games_music/background.mp3')
