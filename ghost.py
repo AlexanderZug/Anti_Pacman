@@ -57,6 +57,7 @@ class Ghost:
             self.player.left -= self.move_speed
         if self.move_right and self.player.right < GameSettings().window_width:
             self.player.right += self.move_speed
+        self.window_surface.blit(self.player_img_stretched, self.player)
 
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, 'instance'):

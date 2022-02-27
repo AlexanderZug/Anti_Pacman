@@ -30,13 +30,9 @@ class AntiPacmanConfig:
             self.escape_exit(event)
         self.main_clock.tick(GameSettings().FPS)
 
-    def blit_unit(self, img_unit, unit):
-        self.window_surface.blit(img_unit, unit)
-
     def window_update(self):
         self.window_surface.fill(GameSettings().bg_colour)
         self.ghost.move_it_speed()
-        self.blit_unit(self.ghost.player_img_stretched, self.ghost.player)
         self.food.check_collisions()
         self.food.food_update()
         self.food.get_score_amount()
