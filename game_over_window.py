@@ -9,10 +9,10 @@ class GameStartAndOver:
     def __init__(self, window_surface):
         self.window_surface = window_surface
 
-    def get_gamer_query(self):
+    def wait_for_gamer_query(self):
+        self.start_music()
         while True:
             for event in pygame.event.get():
-                self.start_music(event)
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
@@ -32,13 +32,10 @@ class GameStartAndOver:
         press_key_rect.center = (300, 400)
         self.window_surface.blit(press_key_text, press_key_rect)
 
-    def start_music(self, event):
-        if event.type != KEYDOWN:
-            pygame.mixer.music.load('games_music/start_song.mp3')
-            pygame.mixer.music.play(-1, 0.0)
-            pygame.mixer.music.set_volume(0.09)
-        else:
-            pygame.mixer.music.stop()
+    def start_music(self):
+        pygame.mixer.music.load('games_music/start_song.mp3')
+        pygame.mixer.music.play(-1, 0.0)
+        pygame.mixer.music.set_volume(0.09)
 
 
 

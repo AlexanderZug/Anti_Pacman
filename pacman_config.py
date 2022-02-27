@@ -62,7 +62,7 @@ class AntiPacmanConfig:
     def start_window(self):
         self.game_over.titel_lbl()
         pygame.display.update()
-        self.game_over.get_gamer_query()
+        self.game_over.wait_for_gamer_query()
 
     def music_config_bg(self):
         pygame.mixer.music.load('games_music/background.mp3')
