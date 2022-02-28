@@ -1,4 +1,4 @@
-import sys
+
 import pygame
 from pygame.locals import *
 
@@ -14,7 +14,7 @@ class AntiPacmanConfig:
         self.window_surface = pygame.display.set_mode((GameSettings().window_width, GameSettings().window_height))
         self.main_clock = pygame.time.Clock()
         self.music_playing = True
-        self.game_over = GameStartAndOver(self.window_surface)
+        self.game_start_over = GameStartAndOver(self.window_surface)
         self.ghost = Ghost(self.window_surface)
         self.food = Food(self.window_surface, self.ghost.player)
         self.enemies = Enemies(self.window_surface, self.ghost.player)
@@ -40,6 +40,7 @@ class AntiPacmanConfig:
         self.enemies.create_enemies_speed()
         self.enemies.check_collisions()
         self.enemies.get_damage()
+        self.game_over_window()
         pygame.display.update()
 
     def music_bg_stop(self, event):
@@ -53,13 +54,19 @@ class AntiPacmanConfig:
     def escape_exit(self, event):
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
-                self.terminate()
+                GameSettings().terminate()
 
     def start_window(self):
-        self.game_over.titel_lbl()
-        self.game_over.blit_start_photo()
+        self.game_start_over.titel_lbl()
+        self.game_start_over.blit_start_photo()
         pygame.display.update()
-        self.game_over.wait_for_gamer_query()
+        self.game_start_over.wait_for_gamer_query()
+
+    def game_over_window(self):
+        if self.enemies.ghost_life < 0:
+            self.game_start_over.game_over_titel()
+            pygame.display.update()
+            self.game_start_over.wait_for_gamer_query()
 
     def music_config_bg(self):
         pygame.mixer.music.load('games_music/background.mp3')

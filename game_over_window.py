@@ -1,4 +1,4 @@
-import sys
+
 import pygame
 from pygame.locals import *
 
@@ -35,6 +35,12 @@ class GameStartAndOver:
         press_key_rect = press_key_text.get_rect()
         press_key_rect.center = (300, 400)
         self.window_surface.blit(press_key_text, press_key_rect)
+
+    def game_over_titel(self):
+        game_over_titel_text = GameSettings().start_font.render("Game Over", True, GameSettings().start_color)
+        game_over_titel_rect = game_over_titel_text.get_rect()
+        game_over_titel_rect.center = (300, 280)
+        self.window_surface.blit(game_over_titel_text, game_over_titel_rect)
 
     def start_music(self):
         pygame.mixer.music.load('games_music/start_song.mp3')
