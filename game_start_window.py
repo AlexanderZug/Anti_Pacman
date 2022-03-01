@@ -49,7 +49,8 @@ class GameStartOverWindows:
         self.window_surface.blit(lvl_text, lvl_text_rect)
         self.over_sound.play()
 
-    def start_music(self):
+    @staticmethod
+    def start_music():
         pygame.mixer.music.load('games_music/start_song.mp3')
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.09)

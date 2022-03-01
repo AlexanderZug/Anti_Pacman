@@ -50,11 +50,6 @@ class AntiPacmanConfig:
                 pygame.mixer.music.play(-1, 0.0)
             self.music_playing = not self.music_playing
 
-    def escape_exit(self, event):
-        if event.type == KEYUP:
-            if event.key == K_ESCAPE:
-                GameSettings().terminate()
-
     def start_window(self):
         self.game_start_over_window.start_music()
         self.game_start_over_window.titel_lbl()
@@ -69,7 +64,14 @@ class AntiPacmanConfig:
             pygame.display.update()
             self.game_start_over_window.wait_for_gamer_query_start()
 
-    def music_config_bg(self):
+    @staticmethod
+    def music_config_bg():
         pygame.mixer.music.load('games_music/background.mp3')
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.06)
+
+    @staticmethod
+    def escape_exit(event):
+        if event.type == KEYUP:
+            if event.key == K_ESCAPE:
+                GameSettings().terminate()

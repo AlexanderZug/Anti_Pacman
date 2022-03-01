@@ -14,7 +14,8 @@ class GameSettings:
         self.text_colour = (255, 255, 255)
         self.start_color = (255, 0, 0)
 
-    def terminate(self):
+    @staticmethod
+    def terminate():
         pygame.quit()
         sys.exit()
 
