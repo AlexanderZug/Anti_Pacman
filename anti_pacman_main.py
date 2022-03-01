@@ -17,4 +17,3 @@ class AntiPacman:
 
 if __name__ == '__main__':
     AntiPacman().run_game()
-    AntiPacman().recurs()
