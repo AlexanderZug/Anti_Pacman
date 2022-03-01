@@ -1,8 +1,7 @@
-
 import pygame
 from pygame.locals import *
 
-from game_over_window import GameStartAndOver
+from game_start_window import GameStartOverWindows
 from ghost import Ghost
 from game_settings import GameSettings
 from ghost_enemies import Enemies
@@ -14,7 +13,7 @@ class AntiPacmanConfig:
         self.window_surface = pygame.display.set_mode((GameSettings().window_width, GameSettings().window_height))
         self.main_clock = pygame.time.Clock()
         self.music_playing = True
-        self.game_start_over = GameStartAndOver(self.window_surface)
+        self.game_start_over_window = GameStartOverWindows(self.window_surface)
         self.ghost = Ghost(self.window_surface)
         self.food = Food(self.window_surface, self.ghost.player)
         self.enemies = Enemies(self.window_surface, self.ghost.player)
@@ -29,6 +28,7 @@ class AntiPacmanConfig:
             self.music_bg_stop(event)
             self.escape_exit(event)
         self.main_clock.tick(GameSettings().FPS)
+        self.game_over_window()
 
     def window_update(self):
         self.window_surface.fill(GameSettings().bg_colour)
@@ -40,7 +40,6 @@ class AntiPacmanConfig:
         self.enemies.create_enemies_speed()
         self.enemies.check_collisions()
         self.enemies.get_damage()
-        self.game_over_window()
         pygame.display.update()
 
     def music_bg_stop(self, event):
@@ -57,19 +56,20 @@ class AntiPacmanConfig:
                 GameSettings().terminate()
 
     def start_window(self):
-        self.game_start_over.titel_lbl()
-        self.game_start_over.blit_start_photo()
+        self.game_start_over_window.start_music()
+        self.game_start_over_window.titel_lbl()
         pygame.display.update()
-        self.game_start_over.wait_for_gamer_query()
+        self.game_start_over_window.wait_for_gamer_query_start()
 
     def game_over_window(self):
-        if self.enemies.ghost_life < 0:
-            self.game_start_over.game_over_titel()
+        if self.enemies.ghost_life == 0:
+            pygame.mixer.music.stop()
+            self.window_surface.fill(GameSettings().bg_colour)
+            self.game_start_over_window.game_over_titel(self.food.score, self.food.lvl_count)
             pygame.display.update()
-            self.game_start_over.wait_for_gamer_query()
+            self.game_start_over_window.wait_for_gamer_query_start()
 
     def music_config_bg(self):
         pygame.mixer.music.load('games_music/background.mp3')
         pygame.mixer.music.play(-1, 0.0)
-        pygame.mixer.music.set_volume(0.09)
-
+        pygame.mixer.music.set_volume(0.06)
