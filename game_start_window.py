@@ -55,6 +55,10 @@ class GameStartOverWindows:
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.09)
 
+    @staticmethod
+    def stop_start_music():
+        pygame.mixer.music.stop()
+
 
 
 

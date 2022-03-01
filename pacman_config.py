@@ -63,6 +63,9 @@ class AntiPacmanConfig:
             self.game_start_over_window.game_over_titel(self.food.score, self.food.lvl_count)
             pygame.display.update()
             self.game_start_over_window.wait_for_gamer_query_start()
+            self.__init__()
+            self.game_start_over_window.stop_start_music()
+            self.music_config_bg()
 
     @staticmethod
     def music_config_bg():
