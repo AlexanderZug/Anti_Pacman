@@ -8,20 +8,12 @@ from game_settings import GameSettings
 class GameStartOverWindows:
     def __init__(self, window_surface):
         self.window_surface = window_surface
-        self.player = pygame.Rect(15, 520, 40, 40)
-        self.player_img = pygame.image.load('games_photos/ghost.png')
-        self.player_img_stretched = pygame.transform.scale(self.player_img, (40, 40))
+        self.speed = 1.5
+        self.ghost_x = -250
+        self.ghost_y = 530
+        self.pacman_x = -450
+        self.pacman_y = 520
         self.over_sound = pygame.mixer.Sound('games_music/game_over.wav')
-
-    def wait_for_gamer_query_start(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    GameSettings().terminate()
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        GameSettings().terminate()
-                    return
 
     def titel_lbl(self):
         titel_text = GameSettings().start_font.render("AntiPacman", True, GameSettings().start_color)
@@ -32,7 +24,20 @@ class GameStartOverWindows:
         press_key_rect = press_key_text.get_rect()
         press_key_rect.center = (300, 400)
         self.window_surface.blit(press_key_text, press_key_rect)
-        self.window_surface.blit(self.player_img_stretched, self.player)
+
+    def unit_move(self):
+        ghost_img = pygame.image.load('games_photos/ghost.png')
+        ghost_img = pygame.transform.scale(ghost_img, (40, 40))
+        pacman_img = pygame.image.load('games_photos/enemy.png')
+        pacman_img = pygame.transform.scale(pacman_img, (50, 50))
+        self.ghost_x += self.speed
+        self.pacman_x += self.speed
+        if self.ghost_x > 530:
+            self.ghost_x = 530
+            self.ghost_y -= self.speed
+        self.window_surface.blit(ghost_img, (self.ghost_x, self.ghost_y))
+        self.window_surface.blit(pacman_img, (self.pacman_x, self.pacman_y))
+        pygame.display.update()
 
     def game_over_titel(self, score, lvl):
         game_over_titel_text = GameSettings().start_font.render("Game Over", True, GameSettings().start_color)
@@ -48,6 +53,25 @@ class GameStartOverWindows:
         lvl_text_rect.center = (400, 400)
         self.window_surface.blit(lvl_text, lvl_text_rect)
         self.over_sound.play()
+
+    def game_over_photos(self):
+        end_ghosts_img = pygame.image.load('games_photos/end_photo.png')
+        end_ghosts_img = pygame.transform.scale(end_ghosts_img, (150, 150))
+        end_ghosts_rect = end_ghosts_img.get_rect(center=(400, 150))
+        self.window_surface.blit(end_ghosts_img, end_ghosts_rect)
+
+    def wait_for_gamer_query_start(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    GameSettings().terminate()
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        GameSettings().terminate()
+                    return
+            self.window_surface.fill(GameSettings().bg_colour)
+            self.titel_lbl()
+            self.unit_move()
 
     @staticmethod
     def start_music():
