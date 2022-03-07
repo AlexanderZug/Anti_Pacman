@@ -86,17 +86,6 @@ class GameStartOverWindows:
             self.unit_move_start_window()
 
     @staticmethod
-    def wait_for_gamer_query_finel():
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    GameSettings().terminate()
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        GameSettings().terminate()
-                    return
-
-    @staticmethod
     def start_music():
         pygame.mixer.music.load('games_music/start_song.mp3')
         pygame.mixer.music.play(-1, 0.0)

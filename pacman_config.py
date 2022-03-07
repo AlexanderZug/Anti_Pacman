@@ -31,7 +31,8 @@ class AntiPacmanConfig:
         self.game_over_window()
 
     def window_update(self):
-        self.window_surface.fill(GameSettings().bg_colour)
+        self.window_surface.fill((255, 255, 255))
+        self.window_surface.blit(GameSettings().bg_img, (0, -300))
         self.ghost.move_it_speed()
         self.food.check_collisions()
         self.food.food_update()
@@ -62,7 +63,7 @@ class AntiPacmanConfig:
             self.game_start_over_window.game_over_titel(self.food.score, self.food.lvl_count)
             self.game_start_over_window.game_over_photos()
             pygame.display.update()
-            self.game_start_over_window.wait_for_gamer_query_finel()
+            GameSettings.wait_for_gamer_query_final()
             self.__init__()
             self.game_start_over_window.stop_start_music()
             self.music_config_bg()

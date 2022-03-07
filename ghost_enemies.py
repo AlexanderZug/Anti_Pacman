@@ -12,11 +12,11 @@ class Enemies:
         self.enemy_img = pygame.image.load('games_photos/enemy.png')
         self.enemy_sound = pygame.mixer.Sound('games_music/catch.wav')
         self.enemies_lst = []
-        self.move_speed = 1
+        self.move_speed = 1.5
         self.ghost_life = 50
 
     def speed_increase(self):
-        self.move_speed += 0.2
+        self.move_speed += 0.5
 
     def create_enemies_dict(self):
         commands_block_one = {'rect': pygame.Rect(250, 80, 50, 100),

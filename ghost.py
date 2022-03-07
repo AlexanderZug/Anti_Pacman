@@ -12,10 +12,10 @@ class Ghost:
         self.player_img_stretched = pygame.transform.scale(self.player_img, (40, 40))
         self.jump_sound = pygame.mixer.Sound('games_music/jump.wav')
         self.move_left = self.move_right = self.move_up = self.move_down = False
-        self.move_speed = 1
+        self.move_speed = 2
 
     def speed_increase(self):
-        self.move_speed += 0.5
+        self.move_speed += 0.7
 
     def move_keydown(self, event):
         if event.type == KEYDOWN:
