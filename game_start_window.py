@@ -11,8 +11,8 @@ class GameStartOverWindows:
         self.speed = 1.5
         self.ghost_x = -250
         self.ghost_y = 530
-        self.pacman_x = -450
-        self.pacman_y = 520
+        self.green_ghost = -100
+        self.pacman_x = -410
         self.over_sound = pygame.mixer.Sound('games_music/game_over.wav')
 
     def titel_lbl(self):
@@ -25,18 +25,30 @@ class GameStartOverWindows:
         press_key_rect.center = (300, 400)
         self.window_surface.blit(press_key_text, press_key_rect)
 
-    def unit_move(self):
+    def unit_move_start_window(self):
         ghost_img = pygame.image.load('games_photos/ghost.png')
         ghost_img = pygame.transform.scale(ghost_img, (40, 40))
         pacman_img = pygame.image.load('games_photos/enemy.png')
         pacman_img = pygame.transform.scale(pacman_img, (50, 50))
+        green_ghost_img = pygame.image.load('games_photos/green_ghost.png')
+        green_ghost_img = pygame.transform.scale(green_ghost_img, (40, 40))
         self.ghost_x += self.speed
         self.pacman_x += self.speed
         if self.ghost_x > 530:
             self.ghost_x = 530
             self.ghost_y -= self.speed
+        if self.ghost_y < 520:
+            self.green_ghost += self.speed
+            if self.ghost_y <= -20:
+                self.green_ghost -= 7
+                if self.ghost_y <= -150:
+                    self.ghost_x = -250
+                    self.ghost_y = 530
+                    self.pacman_x = -410
+                    self.green_ghost = -100
         self.window_surface.blit(ghost_img, (self.ghost_x, self.ghost_y))
-        self.window_surface.blit(pacman_img, (self.pacman_x, self.pacman_y))
+        self.window_surface.blit(pacman_img, (self.pacman_x, 520))
+        self.window_surface.blit(green_ghost_img, (self.green_ghost, 60))
         pygame.display.update()
 
     def game_over_titel(self, score, lvl):
@@ -71,7 +83,18 @@ class GameStartOverWindows:
                     return
             self.window_surface.fill(GameSettings().bg_colour)
             self.titel_lbl()
-            self.unit_move()
+            self.unit_move_start_window()
+
+    @staticmethod
+    def wait_for_gamer_query_finel():
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    GameSettings().terminate()
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        GameSettings().terminate()
+                    return
 
     @staticmethod
     def start_music():
