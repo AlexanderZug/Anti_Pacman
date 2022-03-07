@@ -8,7 +8,7 @@ from game_settings import GameSettings
 class GameStartOverWindows:
     def __init__(self, window_surface):
         self.window_surface = window_surface
-        self.speed = 1.5
+        self.speed = 3
         self.ghost_x = -250
         self.ghost_y = 530
         self.green_ghost = -100
@@ -40,7 +40,7 @@ class GameStartOverWindows:
         if self.ghost_y < 520:
             self.green_ghost += self.speed
             if self.ghost_y <= -20:
-                self.green_ghost -= 7
+                self.green_ghost -= 14
                 if self.ghost_y <= -150:
                     self.ghost_x = -250
                     self.ghost_y = 530
@@ -56,6 +56,11 @@ class GameStartOverWindows:
         game_over_titel_rect = game_over_titel_text.get_rect()
         game_over_titel_rect.center = (300, 280)
         self.window_surface.blit(game_over_titel_text, game_over_titel_rect)
+        game_over_user_query = GameSettings().basic_font.render("Press something to restart", True,
+                                                                GameSettings().text_colour)
+        game_over_user_query_rect = game_over_user_query.get_rect()
+        game_over_user_query_rect.center = (300, 500)
+        self.window_surface.blit( game_over_user_query, game_over_user_query_rect)
         score_text = GameSettings().basic_font.render(f"Score: {score}", True, GameSettings().text_colour)
         score_text_rect = score_text.get_rect()
         score_text_rect.center = (200, 400)
