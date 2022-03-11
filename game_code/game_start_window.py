@@ -3,7 +3,7 @@ from pygame.locals import *
 
 
 from game_settings import GameSettings
-#
+
 
 class GameStartOverWindows:
     def __init__(self, window_surface):
