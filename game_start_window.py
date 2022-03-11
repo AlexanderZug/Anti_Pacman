@@ -1,6 +1,6 @@
-
 import pygame
 from pygame.locals import *
+
 
 from game_settings import GameSettings
 
