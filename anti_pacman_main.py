@@ -14,6 +14,6 @@ class AntiPacman:
             self.settings.set_pygame_events_config()
             self.settings.window_update()
 
-
+#
 if __name__ == '__main__':
     AntiPacman().run_game()
