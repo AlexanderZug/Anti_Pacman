@@ -6,7 +6,7 @@ from game_settings import GameSettings
 
 
 class GameStartOverWindows:
-    """Класс, создающий стартвое окно и окно Game Over; создает экземпляр класса GameSettings"""
+    """Класс, создающий стартвое окно и окно Game Over"""
     def __init__(self, window_surface):
         self.window_surface = window_surface
         self.speed = 3
@@ -55,7 +55,7 @@ class GameStartOverWindows:
         self.window_surface.blit(green_ghost_img, (self.green_ghost, 60))
         pygame.display.update()
 
-    def game_over_titel(self, score, lvl):
+    def game_over_titel(self, score: int, lvl: int):
         """Метод, выводящий в случае поражения Game Over окно с печальной музыкой"""
         game_over_titel_text = GameSettings().start_font.render("Game Over", True, GameSettings().start_color)
         game_over_titel_rect = game_over_titel_text.get_rect()

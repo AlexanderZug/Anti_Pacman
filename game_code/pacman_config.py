@@ -48,7 +48,7 @@ class AntiPacmanConfig:
         self.enemies.get_damage()
         pygame.display.update()
 
-    def music_bg_stop(self, event):
+    def music_bg_stop(self, event: pygame.event.Event):
         """Метод, останавливающий фоновую музыку при нажатии на клавишу m"""
         if event.type == KEYUP and event.key == K_m:
             if self.music_playing:

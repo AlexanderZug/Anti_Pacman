@@ -5,8 +5,8 @@ from game_settings import GameSettings
 
 
 class Ghost:
-    """Класс главного персонажа; создает экземпляр класса GameSettings"""
-    def __init__(self, window_surface):
+    """Класс главного персонажа"""
+    def __init__(self, window_surface: pygame.surface.Surface):
         self.window_surface = window_surface
         self.player = pygame.Rect(15, 520, 40, 40)
         self.player_img = pygame.image.load('games_photos/ghost.png')
@@ -19,7 +19,7 @@ class Ghost:
         """Метод, увеличивающий скорость персонажа при переходе на новый уровень"""
         self.move_speed += 0.7
 
-    def move_keydown(self, event):
+    def move_keydown(self, event: pygame.event.Event):
         """Метод, конфигурирующий перемещение персонажа"""
         if event.type == KEYDOWN:
             if event.key == K_LEFT or event.key == K_a:
@@ -36,7 +36,7 @@ class Ghost:
                 self.move_up = True
         self.move_keyup(event)
 
-    def move_keyup(self, event):
+    def move_keyup(self, event: pygame.event.Event):
         """Метод, конфигурирующий перемещение персонажа"""
         if event.type == KEYUP:
             if event.key == K_LEFT or event.key == K_a:
@@ -48,7 +48,9 @@ class Ghost:
             if event.key == K_UP or event.key == K_w:
                 self.move_up = False
             if event.key == K_SPACE:
-                self.player.top = random.randint(0, GameSettings().window_height - self.player.height) # позволяет персонажу "перепрыгивать" с одного участка игровой поверхности на другой; приземление в рандомных координатах!
+                self.player.top = random.randint(0, GameSettings().window_height - self.player.height)  # позволяет
+                # персонажу "перепрыгивать" с одного участка игровой поверхности на другой; приземление в рандомных
+                # координатах!
                 self.player.left = random.randint(0, GameSettings().window_width - self.player.width)
                 self.jump_sound.play()
 
@@ -65,6 +67,7 @@ class Ghost:
         self.window_surface.blit(self.player_img_stretched, self.player)
 
     def __new__(cls, *args, **kwargs):
+        """Singleton"""
         if not hasattr(cls, 'instance'):
             cls.instance = super().__new__(cls)
             cls.instance.__init__(*args, **kwargs)

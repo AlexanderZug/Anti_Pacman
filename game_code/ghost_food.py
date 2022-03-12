@@ -7,7 +7,7 @@ from ghost_enemies import Enemies
 
 class Food:
     """Класс создающий "еду" для персонажа и подсчитывающий количество полученных очков"""
-    def __init__(self, window_surface, player):
+    def __init__(self, window_surface: pygame.surface.Surface, player: pygame.Rect):
         self.window_surface = window_surface
         self.player = player
         self.food_size = 25
@@ -28,7 +28,7 @@ class Food:
                             self.food_size, self.food_size))
 
     def check_collisions(self):
-        """Метод, проверяющий столкновения персонажа и еды; при столкновении уваличивает количество очков"""
+        """Метод, проверяющий столкновения персонажа и еды; при столкновении увеличивает количество очков"""
         for i in self.food_lst[:]:
             if self.player.colliderect(i):
                 self.food_sound.play()
