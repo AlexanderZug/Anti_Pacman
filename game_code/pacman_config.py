@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from game_start_window import GameStartOverWindows
+from game_start_over_window import GameStartOverWindows
 from ghost import Ghost
 from game_settings import GameSettings
 from ghost_enemies import Enemies
@@ -78,7 +78,7 @@ class AntiPacmanConfig:
 
     @staticmethod
     def music_config_bg():
-        """Статический метод для запуска стартовой музыки"""
+        """Статический метод для запуска фоновой музыки"""
         pygame.mixer.music.load('games_music/background.mp3')
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.06)
