@@ -4,7 +4,7 @@ from game_settings import GameSettings
 
 
 class Enemies:
-    """Класс dhfujd; создает экземпляр класса GameSettings"""
+    """Класс создающий врагов и подсчитывающий урон персонажа при столкновении; создает экземпляр класса GameSettings"""
     def __init__(self, window_surface, player):
         self.window_surface = window_surface
         self.player = player
