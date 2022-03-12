@@ -1,5 +1,5 @@
 # Anti_Pacman
-The program based on the game Pacman. Gives you the opportunity to feel like a ghost, for which evil Pacmans chase (the code is written using the Pattern Singleton).
+The program based on the game Pacman. Gives you the opportunity to feel like a ghost, for which evil Pacmans chase.
 
 ## Deploy locally:
 
