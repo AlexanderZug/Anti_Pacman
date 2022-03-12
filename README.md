@@ -11,6 +11,11 @@ Clone the repository:
 git clone https://github.com/AlexanderZug/Anti_Pacman.git
 ```
 
+Go to folder:
+```
+cd Anti_Pacman
+```
+
 Install requirements:
 ```
 pip3 install -r requirements.txt
