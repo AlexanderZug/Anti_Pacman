@@ -2,7 +2,7 @@ import pygame
 
 from game_settings import GameSettings
 
-
+#
 class Enemies:
     """Класс создающий врагов и подсчитывающий урон персонажа при столкновении"""
     def __init__(self, window_surface: pygame.surface.Surface, player: pygame.Rect):
