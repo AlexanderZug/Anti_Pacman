@@ -3,7 +3,7 @@ The program based on the game Pacman. Gives you the opportunity to feel like a g
 
 ## Deploy locally:
 
-> Install Python(If it's not installed)<br>
+> Install Python (If it's not installed)<br>
 > [Download Python3](https://www.python.org/downloads/)
 
 Clone the repository:
