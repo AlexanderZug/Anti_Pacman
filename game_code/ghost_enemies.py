@@ -4,6 +4,7 @@ from game_settings import GameSettings
 
 
 class Enemies:
+    """Класс dhfujd; создает экземпляр класса GameSettings"""
     def __init__(self, window_surface, player):
         self.window_surface = window_surface
         self.player = player
@@ -15,9 +16,12 @@ class Enemies:
         self.ghost_life = 50
 
     def speed_increase(self):
+        """Метод, увеличивающий скорость врагов при переходе на новый уровень"""
         self.move_speed += 0.5
 
     def create_enemies_dict(self):
+        """Метод, создающий словарь для каждого из врагов с экземпляром класса Rect; задает размеры врагов
+        и координаты их первоначального появления"""
         commands_block_one = {'rect': pygame.Rect(250, 80, 50, 100),
                               'img': pygame.transform.scale(self.enemy_img, (60, 70)),
                               'dir': self.move_direction[3]}
@@ -33,6 +37,7 @@ class Enemies:
         self.enemies_lst = [commands_block_one, commands_block_two, commands_block_three, commands_block_four]
 
     def create_enemies_speed(self):
+        """Метод, конфигурирующий перемещение врагов"""
         for i in self.enemies_lst:
             if i['dir'] == self.move_direction[0]:
                 i['rect'].left -= self.move_speed
@@ -50,6 +55,7 @@ class Enemies:
             self.window_surface.blit(i['img'], i['rect'])
 
     def get_rebound_from_field_top_bottom(self, i):
+        """Метод, не позволяющий врагам выходить за границы игровой поверхности"""
         if i['rect'].top < 0:
             if i['dir'] == self.move_direction[2]:
                 i['dir'] = self.move_direction[0]
@@ -63,6 +69,7 @@ class Enemies:
         self.get_rebound_fromfield_legy_right(i)
 
     def get_rebound_fromfield_legy_right(self, i):
+        """Метод, не позволяющий врагам выходить за границы игровой поверхности"""
         if i['rect'].left < 5:
             if i['dir'] == self.move_direction[0]:
                 i['dir'] = self.move_direction[1]
@@ -75,12 +82,14 @@ class Enemies:
                 i['dir'] = self.move_direction[2]
 
     def check_collisions(self):
+        """Метод, проверяющий столкновение персонажа с врагами и уменьшающий количество его жизней"""
         for i in self.enemies_lst:
             if self.player.colliderect(i['rect']):
                 self.ghost_life -= 1
                 self.enemy_sound.play()
 
     def get_damage(self):
+        """Метод, выводящий количество жизней персонажа на игровую поверхность"""
         life_text = GameSettings().basic_font.render(f"HP: {self.ghost_life}", False, GameSettings().text_colour)
         life_rect = life_text.get_rect()
         life_rect.bottomright = (565, 585)
