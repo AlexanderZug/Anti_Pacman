@@ -25,7 +25,7 @@ pip3 install -r requirements.txt
 Start programm:
 ```
 cd game_code
-python 3 anti_pacman_main.py
+python3 anti_pacman_main.py
 ```
 
 > Technologies used in the project: Python3, Pygame.
