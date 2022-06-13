@@ -1,5 +1,5 @@
 # Anti_Pacman
-The program based on the game Pacman. Gives you the opportunity to feel like a ghost, for which evil Pacmans chase.
+The idea of the program is inspired by the game Pacman. The program gives you the opportunity to feel like a ghost, for which evil Pacmans chase.
 
 ## Deploy locally:
 
