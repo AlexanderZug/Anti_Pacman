@@ -5,7 +5,8 @@ from game_settings import GameSettings
 
 
 class Ghost:
-    """Класс главного персонажа"""
+    """Класс главного персонажа."""
+
     def __init__(self, window_surface: pygame.surface.Surface):
         self.window_surface = window_surface
         self.player = pygame.Rect(15, 520, 40, 40)
@@ -16,11 +17,12 @@ class Ghost:
         self.move_speed = 2
 
     def speed_increase(self):
-        """Метод, увеличивающий скорость персонажа при переходе на новый уровень"""
+        """Метод, увеличивающий скорость
+        персонажа при переходе на новый уровень."""
         self.move_speed += 0.7
 
     def move_keydown(self, event: pygame.event.Event):
-        """Метод, конфигурирующий перемещение персонажа"""
+        """Метод, конфигурирующий перемещение персонажа."""
         if event.type == KEYDOWN:
             if event.key == K_LEFT or event.key == K_a:
                 self.move_right = False
@@ -37,7 +39,7 @@ class Ghost:
         self.move_keyup(event)
 
     def move_keyup(self, event: pygame.event.Event):
-        """Метод, конфигурирующий перемещение персонажа"""
+        """Метод, конфигурирующий перемещение персонажа."""
         if event.type == KEYUP:
             if event.key == K_LEFT or event.key == K_a:
                 self.move_left = False
@@ -55,7 +57,8 @@ class Ghost:
                 self.jump_sound.play()
 
     def move_it_speed(self):
-        """Метод, не позволяющий персонажу выходить за границы игровой поверхности"""
+        """Метод, не позволяющий персонажу выходить
+        за границы игровой поверхности."""
         if self.move_down and self.player.bottom < GameSettings().window_height:
             self.player.bottom += self.move_speed
         if self.move_up and self.player.top > 0:
@@ -67,7 +70,7 @@ class Ghost:
         self.window_surface.blit(self.player_img_stretched, self.player)
 
     def __new__(cls, *args, **kwargs):
-        """Singleton"""
+        """Singleton."""
         if not hasattr(cls, 'instance'):
             cls.instance = super().__new__(cls)
             cls.instance.__init__(*args, **kwargs)

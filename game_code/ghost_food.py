@@ -6,7 +6,10 @@ from ghost_enemies import Enemies
 
 
 class Food:
-    """Класс создающий "еду" для персонажа и подсчитывающий количество полученных очков"""
+    """
+    Класс создающий "еду" для персонажа и
+    подсчитывающий количество полученных очков.
+    """
     def __init__(self, window_surface: pygame.surface.Surface, player: pygame.Rect):
         self.window_surface = window_surface
         self.player = player
@@ -20,7 +23,8 @@ class Food:
         self.lvl_count = 1
 
     def create_food(self):
-        """Метод, создающий экземпляр класса Rect и задающий размер и рандомное место появления еды"""
+        """Метод, создающий экземпляр класса Rect
+        и задающий размер и рандомное место появления еды."""
         for _ in range(6):
             self.food_lst.append(
                 pygame.Rect(random.randint(0, GameSettings().window_width - self.food_size),
@@ -28,7 +32,8 @@ class Food:
                             self.food_size, self.food_size))
 
     def check_collisions(self):
-        """Метод, проверяющий столкновения персонажа и еды; при столкновении увеличивает количество очков"""
+        """Метод, проверяющий столкновения персонажа и еды;
+        при столкновении увеличивает количество очков."""
         for i in self.food_lst[:]:
             if self.player.colliderect(i):
                 self.food_sound.play()
@@ -37,14 +42,16 @@ class Food:
                 self.food_lst.remove(i)
 
     def get_score_amount(self):
-        """Метод, выводящий количество очков на игровую поверхность"""
+        """Метод, выводящий количество
+        очков на игровую поверхность."""
         score_text = GameSettings().basic_font.render(f"Score: {self.score}", False, GameSettings().text_colour)
         score_rect = score_text.get_rect()
         score_rect.bottomleft = (10, 585)
         self.window_surface.blit(score_text, score_rect)
 
     def get_lvl_amount(self):
-        """Метод, увеличивающий уровень и выводящий его на экран"""
+        """Метод, увеличивающий уровень
+        и выводящий его на экран."""
         if self.score_lvl == 6:
             self.lvl_count += 1
             self.score_lvl = 0
@@ -55,7 +62,8 @@ class Food:
 
     def food_update(self):
         """Метод, создающий новую еду, если предыдущая была съедена;
-        при помощи паттерна Singleton увеличивает скорость персонажа и его врагов в классах Ghost и Enemies"""
+        при помощи паттерна Singleton увеличивает скорость
+        персонажа и его врагов в классах Ghost и Enemies."""
         for i in range(len(self.food_lst) + 1):
             if len(self.food_lst) + 1 != 1:
                 self.window_surface.blit(self.food_img_stretched, self.food_lst[i - 1])

@@ -9,8 +9,12 @@ from ghost_food import Food
 
 
 class AntiPacmanConfig:
-    """Конфигурационный класс; создает экземпляры классов Ghost, Enemies, Food, GameStartOverWindows и GameSettings.
-    В классе реализованна основная логика программы"""
+    """
+    Конфигурационный класс; создает экземпляры классов Ghost,
+    Enemies, Food, GameStartOverWindows и GameSettings.
+    В классе реализованна основная логика программы.
+    """
+
     def __init__(self):
         self.window_surface = pygame.display.set_mode((GameSettings().window_width, GameSettings().window_height))
         self.main_clock = pygame.time.Clock()
@@ -23,8 +27,9 @@ class AntiPacmanConfig:
         self.start_window()
 
     def set_pygame_events_config(self):
-        """Метод обрабатывающий игровые события; включает в себя перемещение основного персонажа,
-        обработку выхода из игры и game_over окно"""
+        """Метод обрабатывающий игровые события;
+        включает в себя перемещение основного персонажа,
+        обработку выхода из игры и game_over окно."""
         for event in pygame.event.get():
             if event.type == QUIT:
                 GameSettings().terminate()
@@ -35,7 +40,7 @@ class AntiPacmanConfig:
         self.game_over_window()
 
     def window_update(self):
-        """Метод, который отрисовывает игровые события"""
+        """Метод, который отрисовывает игровые события."""
         self.window_surface.fill((255, 255, 255))
         self.window_surface.blit(GameSettings().bg_img, (0, -300))
         self.ghost.move_it_speed()
@@ -49,7 +54,7 @@ class AntiPacmanConfig:
         pygame.display.update()
 
     def music_bg_stop(self, event: pygame.event.Event):
-        """Метод, останавливающий фоновую музыку при нажатии на клавишу m"""
+        """Метод, останавливающий фоновую музыку при нажатии на клавишу m."""
         if event.type == KEYUP and event.key == K_m:
             if self.music_playing:
                 pygame.mixer.music.stop()
@@ -58,13 +63,14 @@ class AntiPacmanConfig:
             self.music_playing = not self.music_playing
 
     def start_window(self):
-        """Методы, выводящий стартовое окно с музыкой"""
+        """Методы, выводящий стартовое окно с музыкой."""
         self.game_start_over_window.start_music()
         pygame.display.update()
         self.game_start_over_window.wait_for_gamer_query_start()
 
     def game_over_window(self):
-        """Метод, выводящий финальное окно при проигрыше и перезапускающий программу при нажатии клавиши"""
+        """Метод, выводящий финальное окно при проигрыше
+        и перезапускающий программу при нажатии клавиши."""
         if self.enemies.ghost_life == 0:
             pygame.mixer.music.stop()
             self.window_surface.fill(GameSettings().bg_colour)
@@ -78,14 +84,14 @@ class AntiPacmanConfig:
 
     @staticmethod
     def music_config_bg():
-        """Статический метод для запуска фоновой музыки"""
+        """Статический метод для запуска фоновой музыки."""
         pygame.mixer.music.load('games_music/background.mp3')
         pygame.mixer.music.play(-1, 0.0)
         pygame.mixer.music.set_volume(0.06)
 
     @staticmethod
     def escape_exit(event):
-        """Статический метод для выхода через ESC"""
+        """Статический метод для выхода через ESC."""
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
                 GameSettings().terminate()
