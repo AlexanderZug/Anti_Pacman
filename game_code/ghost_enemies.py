@@ -8,7 +8,9 @@ class Enemies:
     Класс создающий врагов и подсчитывающий урон персонажа при столкновении.
     """
 
-    def __init__(self, window_surface: pygame.surface.Surface, player: pygame.Rect):
+    def __init__(
+        self, window_surface: pygame.surface.Surface, player: pygame.Rect
+    ):
         self.window_surface = window_surface
         self.player = player
         self.move_direction = ['downleft', 'downright', 'upleft', 'upright']
@@ -26,19 +28,32 @@ class Enemies:
         """Метод, создающий словарь для каждого из
         врагов с экземпляром класса Rect; задает размеры врагов
         и координаты их первоначального появления."""
-        commands_block_one = {'rect': pygame.Rect(250, 80, 50, 100),
-                              'img': pygame.transform.scale(self.enemy_img, (60, 70)),
-                              'dir': self.move_direction[3]}
-        commands_block_two = {'rect': pygame.Rect(200, 200, 20, 20),
-                              'img': pygame.transform.scale(self.enemy_img, (20, 20)),
-                              'dir': self.move_direction[2]}
-        commands_block_three = {'rect': pygame.Rect(100, 150, 60, 60),
-                                'img': pygame.transform.scale(self.enemy_img, (60, 50)),
-                                'dir': self.move_direction[0]}
-        commands_block_four = {'rect': pygame.Rect(150, 120, 30, 30),
-                               'img': pygame.transform.scale(self.enemy_img, (30, 30)),
-                               'dir': self.move_direction[1]}
-        self.enemies_lst = [commands_block_one, commands_block_two, commands_block_three, commands_block_four]
+        commands_block_one = {
+            'rect': pygame.Rect(250, 80, 50, 100),
+            'img': pygame.transform.scale(self.enemy_img, (60, 70)),
+            'dir': self.move_direction[3],
+        }
+        commands_block_two = {
+            'rect': pygame.Rect(200, 200, 20, 20),
+            'img': pygame.transform.scale(self.enemy_img, (20, 20)),
+            'dir': self.move_direction[2],
+        }
+        commands_block_three = {
+            'rect': pygame.Rect(100, 150, 60, 60),
+            'img': pygame.transform.scale(self.enemy_img, (60, 50)),
+            'dir': self.move_direction[0],
+        }
+        commands_block_four = {
+            'rect': pygame.Rect(150, 120, 30, 30),
+            'img': pygame.transform.scale(self.enemy_img, (30, 30)),
+            'dir': self.move_direction[1],
+        }
+        self.enemies_lst = [
+            commands_block_one,
+            commands_block_two,
+            commands_block_three,
+            commands_block_four,
+        ]
 
     def create_enemies_speed(self):
         """Метод, конфигурирующий перемещение врагов."""
@@ -98,7 +113,9 @@ class Enemies:
     def get_damage(self):
         """Метод, выводящий количество жизней
         персонажа на игровую поверхность."""
-        life_text = GameSettings().basic_font.render(f"HP: {self.ghost_life}", False, GameSettings().text_colour)
+        life_text = GameSettings().basic_font.render(
+            f"HP: {self.ghost_life}", False, GameSettings().text_colour
+        )
         life_rect = life_text.get_rect()
         life_rect.bottomright = (565, 585)
         self.window_surface.blit(life_text, life_rect)

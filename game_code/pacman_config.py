@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import *
 
+from game_settings import GameSettings
 from game_start_over_window import GameStartOverWindows
 from ghost import Ghost
-from game_settings import GameSettings
 from ghost_enemies import Enemies
 from ghost_food import Food
 
@@ -16,7 +16,9 @@ class AntiPacmanConfig:
     """
 
     def __init__(self):
-        self.window_surface = pygame.display.set_mode((GameSettings().window_width, GameSettings().window_height))
+        self.window_surface = pygame.display.set_mode(
+            (GameSettings().window_width, GameSettings().window_height)
+        )
         self.main_clock = pygame.time.Clock()
         self.music_playing = True
         self.game_start_over_window = GameStartOverWindows(self.window_surface)
@@ -74,7 +76,9 @@ class AntiPacmanConfig:
         if self.enemies.ghost_life == 0:
             pygame.mixer.music.stop()
             self.window_surface.fill(GameSettings().bg_colour)
-            self.game_start_over_window.game_over_titel(self.food.score, self.food.lvl_count)
+            self.game_start_over_window.game_over_titel(
+                self.food.score, self.food.lvl_count
+            )
             self.game_start_over_window.game_over_photos()
             pygame.display.update()
             GameSettings.wait_for_gamer_query_final()

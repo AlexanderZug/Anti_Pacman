@@ -1,4 +1,5 @@
 import pygame
+
 from pacman_config import AntiPacmanConfig
 
 
